@@ -192,6 +192,28 @@ class MainWindow(QMainWindow):
             self.mostrar_dialogo("Erro", "Não foi possível obter o gateway da rede.")
             return
         
+        name_dialog = QDialog(self)
+        name_dialog.setWindowTitle("Seu Nome")
+        name_layout = QVBoxLayout(name_dialog)
+        
+        name_layout.addWidget(QLabel("Por favor, digite seu nome de usuário:"))
+        name_entry = QLineEdit()
+        name_entry.setPlaceholderText("Seu nome")
+        name_layout.addWidget(name_entry)
+        
+        ok_button = QPushButton("OK")
+        ok_button.clicked.connect(name_dialog.accept)
+        name_layout.addWidget(ok_button)
+        
+        if name_dialog.exec() == QDialog.Accepted:
+            user_name = name_entry.text().strip()
+            if not user_name:        
+                self.mostrar_dialogo("Erro", "O nome de usuário não pode ser vazio.")
+                return
+        else:
+            # Usuário cancelou o diálogo
+            return
+                
         # Cria a janela primeiro
         self.chat_window = ChatWindow(is_host=False)
         
