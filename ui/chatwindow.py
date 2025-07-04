@@ -115,6 +115,7 @@ class ChatWindow(QWidget):
                 if self.client:
                     try:
                         # Envia diretamente usando o cliente, sem dispatcher
+                        self.client.nome_usuario = nome_usuario
                         self.client.send_message(mensagem)
                     except Exception as e:
                         self.add_message_to_chat(f"Erro ao enviar: {str(e)}")
