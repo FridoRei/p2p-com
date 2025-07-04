@@ -66,6 +66,9 @@ class ChatClient:
             self.client_socket.connect((self.host, self.port))
             print(f"Conectado ao servidor em {self.host}:{self.port}")
             
+            self.client_socket.sendall(f"__USERNAME__:{self.nome_usuario}\n".encode())
+            print(f"Nome de usuário '{self.nome_usuario}' enviado ao servidor.")            
+                        
             # Configura worker e thread
             self.worker = ChatClientWorker(self.client_socket)
             self.thread = threading.Thread(target=self.worker.listen_for_messages, daemon=True)
