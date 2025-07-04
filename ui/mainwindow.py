@@ -195,6 +195,8 @@ class MainWindow(QMainWindow):
         # Cria a janela primeiro
         self.chat_window = ChatWindow(is_host=False)
         
+        nome_usuario = self.chat_window.get_nome_usuario()
+        
         # Cria o cliente passando a janela já criada
         client = ChatClient(gateway, 20557, self.chat_window, nome_usuario)
         

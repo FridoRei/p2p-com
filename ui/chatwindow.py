@@ -125,3 +125,7 @@ class ChatWindow(QWidget):
     def add_message_to_chat(self, mensagem: str):
         """Adiciona uma mensagem à área de chat"""
         self.textview.append(mensagem)
+    
+        def get_nome_usuario(self):
+        """Retorna o nome de usuário definido na janela de chat."""
+        return self.name_entry.text().strip() or "Usuário"
