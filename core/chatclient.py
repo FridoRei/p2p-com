@@ -53,7 +53,7 @@ class ChatClient:
         self.port = port
         self.chat_window = chat_window
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.nome_usuario = nome_usuario
+        self.nome_usuario = nome_usuario or "Suspeito"
         self.worker = None
         self.thread = None
 

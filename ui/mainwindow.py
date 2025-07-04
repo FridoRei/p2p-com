@@ -192,10 +192,16 @@ class MainWindow(QMainWindow):
             self.mostrar_dialogo("Erro", "Não foi possível obter o gateway da rede.")
             return
         
+            nome_usuario, ok = QInputDialog.getText(
+                self, 
+                "Identificação", 
+                "Digite seu nome:",
+                QLineEdit.Normal,
+                ""
+                )
+        
         # Cria a janela primeiro
         self.chat_window = ChatWindow(is_host=False)
-        
-        nome_usuario = self.chat_window.get_nome_usuario()
         
         # Cria o cliente passando a janela já criada
         client = ChatClient(gateway, 20557, self.chat_window, nome_usuario)
