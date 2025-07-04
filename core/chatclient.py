@@ -48,7 +48,7 @@ class ChatClient:
             print(f"[ERRO] ao obter gateway: {e}")
         return None
 
-    def __init__(self, host, port, chat_window=None, nome_usuario):
+    def __init__(self, host, port, chat_window=None, nome_usuario="Usuário"):
         self.host = host
         self.port = port
         self.chat_window = chat_window
