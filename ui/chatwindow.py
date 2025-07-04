@@ -19,6 +19,11 @@ class ChatWindow(QWidget):
         self.server_process = None  # Referência para o processo do servidor
 
         layout = QVBoxLayout(self)
+        
+                # Adiciona um campo para o nome do usuário
+        self.name_entry = QLineEdit()
+        self.name_entry.setPlaceholderText("Digite seu nome...")
+        layout.addWidget(self.name_entry)
 
         # Criar o QTabWidget para alternar entre as abas
         self.tabs = QTabWidget(self)
@@ -98,9 +103,10 @@ class ChatWindow(QWidget):
 
     def on_send_clicked(self):
         mensagem = self.entry.text().strip()
+        nome_usuario = self.name_entry.text().strip() or "Usuário"
 
         if mensagem:
-            self.add_message_to_chat(f"Você: {mensagem}")
+            self.add_message_to_chat(f"{nome_usuario}: {mensagem}")
             self.entry.clear()
             if self.is_host:
                 if self.broadcast_func:
