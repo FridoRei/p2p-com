@@ -60,12 +60,38 @@ class MainWindow(QMainWindow):
         # Espaço abaixo
         vbox.addSpacerItem(QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+    def solicitar_nome_usuario(self):
+    dialog = QDialog(self)
+    dialog.setWindowTitle("Nome de Usuário")
+    layout = QVBoxLayout(dialog)
+
+    layout.addWidget(QLabel("Digite seu nome de usuário:"))
+    nome_entry = QLineEdit()
+    layout.addWidget(nome_entry)
+
+    btn_ok = QPushButton("OK")
+    layout.addWidget(btn_ok)
+
+    def on_ok_clicked():
+        nome_usuario = nome_entry.text().strip()
+        if nome_usuario:
+            dialog.accept()
+            self.juntar_se_ao_hotspot(nome_usuario)  # Passa o nome do usuário
+        else:
+            self.mostrar_dialogo("Erro", "O nome de usuário não pode estar vazio.")
+
+    btn_ok.clicked.connect(on_ok_clicked)
+
+    dialog.exec()
+
+    
     @Slot()
     def on_host_clicked(self):
         self.selecionar_interface_wifi()
 
     @Slot()
     def on_join_clicked(self):
+        self.solicitar_nome_usuario()
         if verificar_conexao_com_host(validar_token):
             print("Você está conectado ao host correto!")
             self.juntar_se_ao_hotspot()
@@ -191,18 +217,6 @@ class MainWindow(QMainWindow):
         if not gateway:
             self.mostrar_dialogo("Erro", "Não foi possível obter o gateway da rede.")
             return
-        
-        # Solicita o nome do usuário (dentro do mesmo bloco)
-        nome_usuario, ok = QInputDialog.getText(
-            self, 
-            "Identificação", 
-            "Digite seu nome:",
-            QLineEdit.Normal,
-            ""
-        )
-        
-        if not ok or not nome_usuario.strip():
-            return  # Usuário cancelou ou não digitou nome
         
         # Cria a janela primeiro
         self.chat_window = ChatWindow(is_host=False)

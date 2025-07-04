@@ -48,12 +48,12 @@ class ChatClient:
             print(f"[ERRO] ao obter gateway: {e}")
         return None
 
-    def __init__(self, host, port, chat_window=None):
+    def __init__(self, host, port, chat_window=None, nome_usuario="Usuário"):
         self.host = host
         self.port = port
         self.chat_window = chat_window
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.nome_usuario = nome_usuario or "Suspeito"
+        self.nome_usuario = nome_usuario
         self.worker = None
         self.thread = None
 
@@ -86,9 +86,8 @@ class ChatClient:
             if not self.client_socket:
                 raise Exception("Socket não inicializado")
             
-            mensagem_com_nome = f"{self.nome_usuario}: {message}"
             # Adiciona quebra de linha para facilitar a leitura no servidor
-            self.client_socket.sendall((mensagem_com_nome + "\n").encode())
+            self.client_socket.sendall((message + "\n").encode())
         except Exception as e:
             print(f"Erro ao enviar mensagem: {e}")
             if self.chat_window:
