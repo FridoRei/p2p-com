@@ -86,9 +86,7 @@ class ChatClient:
             if not self.client_socket:
                 raise Exception("Socket não inicializado")
             
-            mensagem_com_nome = f"{self.nome_usuario}: {message}"
-            # Adiciona quebra de linha para facilitar a leitura no servidor
-            self.client_socket.sendall((mensagem_com_nome + "\n").encode())
+            self.client_socket.sendall((message + "\n").encode())
         except Exception as e:
             print(f"Erro ao enviar mensagem: {e}")
             if self.chat_window:
