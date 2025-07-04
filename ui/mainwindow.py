@@ -206,8 +206,8 @@ class MainWindow(QMainWindow):
         name_layout.addWidget(ok_button)
         
         if name_dialog.exec() == QDialog.Accepted:
-            user_name = name_entry.text().strip()
-            if not user_name:        
+            nome_usuario = name_entry.text().strip()
+            if not nome_usuario:        
                 self.mostrar_dialogo("Erro", "O nome de usuário não pode ser vazio.")
                 return
         else:
@@ -218,7 +218,7 @@ class MainWindow(QMainWindow):
         self.chat_window = ChatWindow(is_host=False)
         
         # Cria o cliente passando a janela já criada
-        client = ChatClient(gateway, 20557, self.chat_window)
+        client = ChatClient(gateway, 20557, self.chat_window, nome_usuario)
         
         # Atualiza a referência do cliente na janela
         self.chat_window.client = client
