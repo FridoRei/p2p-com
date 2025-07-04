@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+ui/__pycache__/
+core/__pycache__/
